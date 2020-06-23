@@ -13,6 +13,8 @@
 	  8> I18N
 	  9> Versioning
 	 10> Validation
+	 11> Basic Spring Authentication
+	 12> JPA interaction
   ```
 
 ### Few Important Links (will help when you run in local)
