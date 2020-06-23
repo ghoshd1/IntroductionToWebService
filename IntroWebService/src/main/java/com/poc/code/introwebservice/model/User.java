@@ -1,17 +1,28 @@
 package com.poc.code.introwebservice.model;
 
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "All User Attributes")
+@Entity
 public class User {
-	
+	@Id
+	@GeneratedValue
 	private int id;
 	
-	@Min(value = 2,message="Minimum length of name should be 2 characters")
+	@Size(min = 2,message="Minimum length of name should be 2 characters")
 	@ApiModelProperty(notes  = "Minimum length of name should be 2 characters")
 	private String name;
 	
@@ -19,7 +30,10 @@ public class User {
     @Max(value = 65, message = "Age should not be greater than 65")
 	private int age;
 	
-
+	@OneToMany(mappedBy = "user")
+	@JsonIgnore
+	private  List<Post> post;
+	
 	public User() {
 	}
 	
@@ -40,6 +54,14 @@ public class User {
 
 	public int getAge() {
 		return age;
+	}
+	
+	public List<Post> getPost() {
+		return post;
+	}
+
+	public void setPost(List<Post> post) {
+		this.post = post;
 	}
 
 	@Override
